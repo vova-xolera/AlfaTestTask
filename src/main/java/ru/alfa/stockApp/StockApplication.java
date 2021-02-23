@@ -1,4 +1,4 @@
-package ru.alfa;
+package ru.alfa.stockApp;
 
 
 import org.springframework.boot.SpringApplication;
