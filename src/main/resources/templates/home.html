@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html   xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Are you rich?</title>
+    </head>
+
+    <body>
+        <form method="GET">
+
+            <h1 th:if="${errorMessage} != null"
+                color=red
+                th:text="${errorMessage}">
+            </h1>
+
+            <img    th:if="${gifUrl} != null"
+                    th:src="${gifUrl}"/>
+
+            <br/>
+            <a th:href="@{/}">Go home</a>
+
+        </form>
+    </body>
+</html>
