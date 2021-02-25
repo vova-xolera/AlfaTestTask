@@ -42,7 +42,7 @@ public class StockProxyTests {
                 assertEquals(3.0, env.getProperty("stock.input_currency").length(), "Every currency must contains 3 symbols, check stock.input_currency");
             }
             else throw new Exception("One of currency fields is empty, check application.properties!");
-            assertEquals(1.0, rates.path(CURRENCY).asDouble(), "Check input currency name!");
+
             assertNotEquals(0.0, rates.path(env.getProperty("stock.base_currency")).asDouble(), "Check base currency name!");
     }
 }

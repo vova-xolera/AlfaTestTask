@@ -43,7 +43,7 @@ public class StockService {
         }
         catch (Exception e) {
              throw new StockReceivingException();
-    }
+        }
     }
 
     public String getGifUrl() {
