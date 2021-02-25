@@ -17,7 +17,7 @@ public class StockProxyTests {
     @Autowired
     StockProxy stockProxy;
 
-    static final LocalDate DAY = LocalDate.of(2021, 2, 25);
+    static final LocalDate DAY = LocalDate.of(2021, 2, 24);
 
     static final String CURRENCY = "USD";
 
@@ -30,7 +30,7 @@ public class StockProxyTests {
             JsonNode rates = new ObjectMapper().readTree(ratesJson).path("rates");
 
             assertEquals(1.0, rates.path(CURRENCY).asDouble(), "Error with access to stock");
-            assertEquals(74.4859, rates.path(env.getProperty("stock.base_currency")).asDouble(), "Error with access to stock");
+            assertEquals(73.524, rates.path(env.getProperty("stock.base_currency")).asDouble(), "Error with access to stock");
     }
 
     @Test
