@@ -12,7 +12,7 @@ public interface StockProxy {
                         "&symbols=${stock.base_currency}" +
                         "%2C{stock.input_currency}")
 
-    public String getRateAndDate(
+    String getRateAndDate(
             @PathVariable("inputCurrency") String inputCurrency,
             @PathVariable("date") String date
     );

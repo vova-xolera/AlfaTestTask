@@ -12,6 +12,6 @@ public interface GifProxy {
                         "&tag={tag}" +
                         "&rating=g")
 
-    public String getJsonWithRandomGifByTag(@PathVariable("tag") String tag);
+    String getJsonWithRandomGifByTag(@PathVariable("tag") String tag);
 
 }
