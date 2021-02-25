@@ -9,8 +9,7 @@ public interface GifProxy {
 
     @GetMapping(value=  "/v1/gifs/random" +
                         "?api_key=${gif.api_key}" +
-                        "&tag={tag}" +
-                        "&rating=g")
+                        "&tag={tag}")
 
     String getJsonWithRandomGifByTag(@PathVariable("tag") String tag);
 

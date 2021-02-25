@@ -10,7 +10,7 @@ public interface StockProxy {
     @GetMapping(value=  "/historical/{date}.json" +
                         "?app_id=${stock.app_id}" +
                         "&symbols=${stock.base_currency}" +
-                        "%2C{stock.input_currency}")
+                        "%2C{inputCurrency}")
 
     String getRateAndDate(
             @PathVariable("inputCurrency") String inputCurrency,

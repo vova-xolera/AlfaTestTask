@@ -16,15 +16,8 @@ public class HomeController {
     @GetMapping
     public String showGifAccordingToWealth(
             Model model) {
-        try {
-            String gifUrl = stockService.getGifUrl();
-
-            model.addAttribute("gifUrl", gifUrl);
-        }
-        catch (Exception e) {
-            model.addAttribute("errorMessage", e.getMessage());
-        }
-        return "home";
-    }
-
+                String gifUrl = stockService.getGifUrl();
+                model.addAttribute("gifUrl", gifUrl);
+                return "home";
+            }
 }

@@ -22,23 +22,22 @@ public class StockService {
     @Autowired
     private GifProxy gifProxy;
 
-    public Boolean isHigherThanYesterday() {
-        double currentRate = getRateAt(LocalDate.now());
-        double yesterdayRate = getRateAt(LocalDate.now().minusDays(1));
-        System.out.println(currentRate + " " + yesterdayRate);
+    protected Boolean isHigherThanYesterday(LocalDate date) {
+        double currentRate = getRateAt(date);
+        double yesterdayRate = getRateAt(date.minusDays(1));
         return currentRate > yesterdayRate;
     }
 
-    public Double getRateAt(LocalDate date) {
+    protected Double getRateAt(LocalDate date) {
             String Json = stockProxy.getRateAndDate("stock.input_currency", date.toString());
             return getRateFromNode(getRatesNode(Json));
     }
 
-    private Double getRateFromNode(JsonNode ratesNode) {
+    protected Double getRateFromNode(JsonNode ratesNode) {
         return ratesNode.path(environment.getProperty("stock.base_currency")).asDouble();
     }
 
-    private JsonNode getRatesNode(String ratesJson) {
+    protected JsonNode getRatesNode(String ratesJson) {
         try {
             return new ObjectMapper().readTree(ratesJson).path("rates");
         }
@@ -48,17 +47,13 @@ public class StockService {
     }
 
     public String getGifUrl() {
-        if (isHigherThanYesterday()) {
-            String GifURL = getFixedHeightGifUrl(gifProxy.getJsonWithRandomGifByTag("rich"));
-            System.out.println(GifURL);
-            return GifURL;
+        if (isHigherThanYesterday(LocalDate.now())) {
+            return getFixedHeightGifUrl(gifProxy.getJsonWithRandomGifByTag("rich"));
         }
-        String GifURL = getFixedHeightGifUrl(gifProxy.getJsonWithRandomGifByTag("broke"));
-        System.out.println(GifURL);
-        return GifURL;
+        return getFixedHeightGifUrl(gifProxy.getJsonWithRandomGifByTag("broke"));
     }
 
-    private String getFixedHeightGifUrl(String jsonWithGif) {
+    protected String getFixedHeightGifUrl(String jsonWithGif) {
         try {
            return new ObjectMapper().readTree(jsonWithGif)
                     .path("data").path("images").path("fixed_height").path("url")
