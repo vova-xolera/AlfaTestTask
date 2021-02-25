@@ -8,11 +8,6 @@
     <body>
         <form method="GET">
 
-            <h1 th:if="${errorMessage} != null"
-                color=red
-                th:text="${errorMessage}">
-            </h1>
-
             <img    th:if="${gifUrl} != null"
                     th:src="${gifUrl}"/>
 
