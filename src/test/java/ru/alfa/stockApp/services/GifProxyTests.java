@@ -13,11 +13,9 @@ public class GifProxyTests {
     @Autowired
     GifProxy gifProxy;
 
-        @Test
-        void returnJsonOnTagRich() {
-            assertDoesNotThrow(() ->
-                new JSONObject(gifProxy.getJsonWithRandomGifByTag("rich")));
-        }
-
-
+    @Test
+    void checkExceptionsThanCreateNewObject() {
+        assertDoesNotThrow(() -> new JSONObject(gifProxy.getJsonWithRandomGifByTag("rich")));
+        assertDoesNotThrow(() -> new JSONObject(gifProxy.getJsonWithRandomGifByTag("broke")));
+    }
 }

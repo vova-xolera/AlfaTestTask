@@ -22,18 +22,23 @@ public class StockService {
     @Autowired
     private GifProxy gifProxy;
 
+    /**
+     * Here I used protected for encapsulation
+     * end test access at the same time.
+    **/
+
     protected Boolean isHigherThanYesterday(LocalDate date) {
-        double currentRate = getRateAt(date);
-        double yesterdayRate = getRateAt(date.minusDays(1));
+        double currentRate = getRateAtDate(date);
+        double yesterdayRate = getRateAtDate(date.minusDays(1));
         return currentRate > yesterdayRate;
     }
 
-    protected Double getRateAt(LocalDate date) {
-            String Json = stockProxy.getRateAndDate("stock.input_currency", date.toString());
-            return getRateFromNode(getRatesNode(Json));
+    protected Double getRateAtDate(LocalDate date) {
+        String Json = stockProxy.getRateAndDate("stock.input_currency", date.toString());
+        return getRateFromNode(getRatesNode(Json));
     }
 
-    protected Double getRateFromNode(JsonNode ratesNode) {
+    private Double getRateFromNode(JsonNode ratesNode) {
         return ratesNode.path(environment.getProperty("stock.base_currency")).asDouble();
     }
 
@@ -48,16 +53,22 @@ public class StockService {
 
     public String getGifUrl() {
         if (isHigherThanYesterday(LocalDate.now())) {
-            return getFixedHeightGifUrl(gifProxy.getJsonWithRandomGifByTag("rich"));
+            return extractGIFFromJSON(gifProxy.getJsonWithRandomGifByTag("rich"));
         }
-        return getFixedHeightGifUrl(gifProxy.getJsonWithRandomGifByTag("broke"));
+        return extractGIFFromJSON(gifProxy.getJsonWithRandomGifByTag("broke"));
     }
 
-    protected String getFixedHeightGifUrl(String jsonWithGif) {
+    /**
+     * Here i use "original" to identify
+     * gif. There a lot of types of one.
+     * You can fund example of JSON in
+     * file in test/resources.
+     **/
+
+    protected String extractGIFFromJSON(String jsonWithGif) {
         try {
            return new ObjectMapper().readTree(jsonWithGif)
-                    .path("data").path("images").path("fixed_height").path("url")
-                    .asText();
+                    .path("data").path("images").path("original").path("url").asText();
         }
         catch (Exception e) {
             throw new GIFReceivingException();

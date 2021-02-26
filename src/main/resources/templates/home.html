@@ -3,17 +3,19 @@
         xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Check your luck!</title>
+        <style>
+        .fig {
+                text-align: center;
+             }
+        </style>
     </head>
 
     <body>
         <form method="GET">
-
-            <img    th:if="${gifUrl} != null"
+            <p class="fig"><img    th:if="${gifUrl} != null"
                     th:src="${gifUrl}"/>
-
             <br/>
-            <a th:href="@{/}">New Gif?</a>
-
+                <big><a th:href="@{/}">New GIF?</a></big>
         </form>
     </body>
 </html>
